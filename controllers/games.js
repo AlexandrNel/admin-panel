@@ -36,8 +36,11 @@ const getAllGames = async (req, res) => {
       updated: req.game,
     });
   };
-
+const addGameController = async (req, res) =>{
+    
+}
   module.exports = {
     getAllGames,
-    deleteGame
+    deleteGame,
+    addGameController
   }
