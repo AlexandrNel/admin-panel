@@ -2,9 +2,9 @@
   "name": "express-proj",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemonapp app.js"
   },
   "author": "",
   "license": "ISC",
