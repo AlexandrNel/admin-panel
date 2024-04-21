@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const {mainRoute, gamesRouter} = require('./routes')
+const {cors} = require('./middlewares') 
 const bodyParser = require('body-parser')
 
 const app = express()
