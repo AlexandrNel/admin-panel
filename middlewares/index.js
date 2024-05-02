@@ -5,6 +5,7 @@ const {
   updateGamesFile,
   findGameById,
   deleteGame,
+  findAllGames,
 } = require("./games");
 const cors = require("./cors");
 
@@ -16,4 +17,5 @@ module.exports = {
   findGameById,
   deleteGame,
   cors,
+  findAllGames,
 };

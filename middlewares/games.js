@@ -1,4 +1,12 @@
 const { readData, writeData } = require("../utils/data");
+const games = require("../models/game");
+
+const findAllGames = async (req, res, next) => {
+  const result = await games.find({}).populate("categories").populate("users");
+  req.gamesArray = result;
+  console.log(result);
+  next();
+};
 
 const getAllGames = async (req, res, next) => {
   const games = await readData("./data/games.json");
@@ -6,7 +14,7 @@ const getAllGames = async (req, res, next) => {
     res.status(400);
     res.send({
       status: "error",
-      message: "Нет игр в базе данных. Добавь игру."
+      message: "Нет игр в базе данных. Добавь игру.",
     });
     return;
   }
@@ -15,13 +23,13 @@ const getAllGames = async (req, res, next) => {
 };
 
 const checkIsTitleInArray = (req, res, next) => {
-  req.isNew = !Boolean(req.games.find(item => item.title === req.body.title));
+  req.isNew = !Boolean(req.games.find((item) => item.title === req.body.title));
   next();
 };
 
 const updateGamesArray = (req, res, next) => {
   if (req.isNew) {
-    const inArray = req.games.map(item => Number(item.id));
+    const inArray = req.games.map((item) => Number(item.id));
     let maximalId;
     if (inArray.length > 0) {
       maximalId = Math.max(...inArray);
@@ -34,7 +42,7 @@ const updateGamesArray = (req, res, next) => {
       title: req.body.title,
       image: req.body.image,
       link: req.body.link,
-      description: req.body.description
+      description: req.body.description,
     };
     req.games = [...req.games, req.updatedObject];
     next();
@@ -51,22 +59,22 @@ const updateGamesFile = async (req, res, next) => {
 
 const findGameById = (req, res, next) => {
   const id = Number(req.params.id);
-  req.game = req.games.find(item => item.id === id);
+  req.game = req.games.find((item) => item.id === id);
   next();
 };
 
 const deleteGame = (req, res, next) => {
   const id = req.game.id;
-  const index = req.games.findIndex(item => item.id === id);
+  const index = req.games.findIndex((item) => item.id === id);
   req.games.splice(index, 1);
   next();
 };
-
 module.exports = {
   getAllGames,
   checkIsTitleInArray,
   updateGamesArray,
   updateGamesFile,
   findGameById,
-  deleteGame
-}; 
+  deleteGame,
+  findAllGames,
+};
