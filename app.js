@@ -6,7 +6,7 @@ const {
   categoriesRouter,
   usersRouter,
 } = require("./routes");
-const { cors } = require("./middlewares");
+const cors = require("./middlewares/cors");
 const bodyParser = require("body-parser");
 const connectToDatabase = require("./database/connect");
 

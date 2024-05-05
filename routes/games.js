@@ -7,7 +7,7 @@ const {
   deleteGame,
   findAllGames,
   createGame,
-} = require("../middlewares");
+} = require("../middlewares/games");
 
 const {
   sendAllGames,
