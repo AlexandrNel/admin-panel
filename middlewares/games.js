@@ -53,15 +53,28 @@ const updateGamesArray = (req, res, next) => {
   }
 };
 
-// const updateGamesFile = async (req, res, next) => {
-//   await writeData("./data/games.json", req.games);
-//   next();
-// };
+const updateGame = async (req, res, next) => {
+  try {
+    req.game = await games.findByIdAndUpdate(req.params.id, req.body);
+    next();
+  } catch (err) {
+    res.setHeader("Content-Type", "application/json");
+    res.status(400).send(JSON.stringify({ message: "Ошибка обновления игры" }));
+  }
+};
 
-const findGameById = (req, res, next) => {
-  const id = Number(req.params.id);
-  req.game = req.games.find((item) => item.id === id);
-  next();
+const findGameById = async (req, res, next) => {
+  console.log("GET /games/:id");
+  try {
+    req.game = await games
+      .findById(req.params.id)
+      .populate("categories")
+      .populate({ path: "users", select: "-password" });
+    next();
+  } catch (err) {
+    res.setHeader("Content-Type", "application/json");
+    res.status(404).send(JSON.stringify({ message: "Игра не найдена" }));
+  }
 };
 
 const deleteGame = (req, res, next) => {
@@ -73,7 +86,7 @@ const deleteGame = (req, res, next) => {
 module.exports = {
   checkIsTitleInArray,
   updateGamesArray,
-  // updateGamesFile,
+  updateGame,
   findGameById,
   deleteGame,
   findAllGames,
