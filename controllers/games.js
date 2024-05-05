@@ -12,5 +12,19 @@ const sendUpdatedGames = (req, res) => {
     updated: req.updatedObject,
   });
 };
+const sendGameById = (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(req.game));
+};
+const sendGameUpdated = (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.status(200).send(JSON.stringify({ message: "Игры обновлена" }));
+};
 
-module.exports = { sendAllGames, sendUpdatedGames, sendGameCreated };
+module.exports = {
+  sendAllGames,
+  sendGameUpdated,
+  sendUpdatedGames,
+  sendGameCreated,
+  sendGameById,
+};
