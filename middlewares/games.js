@@ -1,24 +1,25 @@
 const { readData, writeData } = require("../utils/data");
 const games = require("../models/game");
 
-const findAllGames = async (req, res, next) => {
-  const result = await games.find({}).populate("categories").populate("users");
-  req.gamesArray = result;
-  console.log(result);
-  next();
+const createGame = async (req, res, next) => {
+  console.log("POST /games");
+  try {
+    console.log(req.body);
+    req.game = await games.create(req.body);
+    next();
+  } catch (err) {
+    res.setHeader("Content-Type", "application/json");
+    res.status(400).send(JSON.stringify({ message: "Ошибка создания игры" }));
+  }
 };
 
-const getAllGames = async (req, res, next) => {
-  const games = await readData("./data/games.json");
-  if (!games) {
-    res.status(400);
-    res.send({
-      status: "error",
-      message: "Нет игр в базе данных. Добавь игру.",
-    });
-    return;
-  }
-  req.games = games;
+const findAllGames = async (req, res, next) => {
+  const result = await games.find({}).populate("categories").populate({
+    path: "users",
+    select: "-password",
+  });
+  req.gamesArray = result;
+  console.log(result);
   next();
 };
 
@@ -52,10 +53,10 @@ const updateGamesArray = (req, res, next) => {
   }
 };
 
-const updateGamesFile = async (req, res, next) => {
-  await writeData("./data/games.json", req.games);
-  next();
-};
+// const updateGamesFile = async (req, res, next) => {
+//   await writeData("./data/games.json", req.games);
+//   next();
+// };
 
 const findGameById = (req, res, next) => {
   const id = Number(req.params.id);
@@ -70,11 +71,11 @@ const deleteGame = (req, res, next) => {
   next();
 };
 module.exports = {
-  getAllGames,
   checkIsTitleInArray,
   updateGamesArray,
-  updateGamesFile,
+  // updateGamesFile,
   findGameById,
   deleteGame,
   findAllGames,
+  createGame,
 };

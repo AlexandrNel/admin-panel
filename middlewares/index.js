@@ -1,21 +1,21 @@
 const {
-  getAllGames,
   checkIsTitleInArray,
   updateGamesArray,
-  updateGamesFile,
+  // updateGamesFile,
   findGameById,
   deleteGame,
   findAllGames,
+  createGame,
 } = require("./games");
 const cors = require("./cors");
 
 module.exports = {
-  getAllGames,
   checkIsTitleInArray,
   updateGamesArray,
-  updateGamesFile,
+  // updateGamesFile,
   findGameById,
   deleteGame,
   cors,
   findAllGames,
+  createGame,
 };
