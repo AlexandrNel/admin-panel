@@ -5,6 +5,8 @@ const {
   findCategoryById,
   updateCategory,
   deleteCategory,
+  checkIsCategoryExists,
+  checkEmptyName,
 } = require("../middlewares/categories");
 const {
   sendAllCategories,
@@ -19,11 +21,18 @@ categoriesRouter.get("/categories", findAllCategories, sendAllCategories);
 categoriesRouter.post(
   "/categories",
   findAllCategories,
+  checkIsCategoryExists,
+  checkEmptyName,
   createCategory,
   sendCategoryCreated
 );
 
-categoriesRouter.put("/categories/:id", updateCategory, sendCategoryUpdated);
+categoriesRouter.put(
+  "/categories/:id",
+  checkEmptyName,
+  updateCategory,
+  sendCategoryUpdated
+);
 
 categoriesRouter.get("/category/:id", findCategoryById, sendCategoryById);
 
