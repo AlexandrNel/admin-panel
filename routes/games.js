@@ -10,6 +10,7 @@ const {
 } = require("../middlewares/games");
 
 const {
+  sendGameDeleted,
   sendAllGames,
   sendUpdatedGames,
   sendGameById,
@@ -25,12 +26,6 @@ gamesRouter.get("/games/:id", findGameById, sendGameById);
 
 gamesRouter.put("/games/:id", updateGame, sendGameUpdated);
 
-gamesRouter.delete(
-  "/games/:id",
-  findGameById,
-  deleteGame,
-  // updateGamesFile,
-  sendUpdatedGames
-);
+gamesRouter.delete("/games/:id", deleteGame, sendGameDeleted);
 
 module.exports = gamesRouter;
