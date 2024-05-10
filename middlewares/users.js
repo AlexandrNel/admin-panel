@@ -41,4 +41,20 @@ const updateUser = async (req, res, next) => {
   }
 };
 
-module.exports = { findAllUsers, createUser, findUserById, updateUser };
+const deleteUser = async (req, res) => {
+  try {
+    req.user = await users.findByIdAndDelete(req.params.id);
+    next();
+  } catch (err) {
+    res.setHeader("Content-Type", "application/json");
+    res.status(400).send(JSON.stringify({ message: "Ошибка удаления игры" }));
+  }
+};
+
+module.exports = {
+  deleteUser,
+  findAllUsers,
+  createUser,
+  findUserById,
+  updateUser,
+};
