@@ -1,5 +1,6 @@
 const usersRouter = require("express").Router();
 const {
+  hashPassword,
   findAllUsers,
   createUser,
   findUserById,
@@ -30,6 +31,7 @@ usersRouter.post(
   findAllUsers,
   checkIsUserExists,
   checkEmptyNameAndEmailAndPassword,
+  hashPassword,
   createUser,
   sendUserCreated
 );

@@ -6,6 +6,7 @@ const {
   categoriesRouter,
   usersRouter,
 } = require("./routes");
+const apiRouter = require("./routes/apiRouter");
 const cors = require("./middlewares/cors");
 const bodyParser = require("body-parser");
 const connectToDatabase = require("./database/connect");
@@ -16,6 +17,7 @@ connectToDatabase();
 app.use(
   cors,
   bodyParser.json(),
+  apiRouter,
   express.static(path.join(__dirname, "public")),
   mainRouter,
   gamesRouter,
