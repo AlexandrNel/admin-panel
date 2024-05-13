@@ -1,7 +1,5 @@
 const gamesRouter = require("express").Router();
 const {
-  checkIsTitleInArray,
-  updateGamesArray,
   updateGame,
   findGameById,
   deleteGame,
@@ -16,7 +14,6 @@ const {
 const {
   sendGameDeleted,
   sendAllGames,
-  sendUpdatedGames,
   sendGameById,
   sendGameCreated,
   sendGameUpdated,

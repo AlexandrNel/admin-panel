@@ -6,12 +6,7 @@ const sendGameCreated = (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.end(JSON.stringify(req.game));
 };
-const sendUpdatedGames = (req, res) => {
-  res.send({
-    games: req.games,
-    updated: req.updatedObject,
-  });
-};
+
 const sendGameById = (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.end(JSON.stringify(req.game));
@@ -30,7 +25,6 @@ module.exports = {
   sendGameDeleted,
   sendAllGames,
   sendGameUpdated,
-  sendUpdatedGames,
   sendGameCreated,
   sendGameById,
 };
