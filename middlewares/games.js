@@ -14,12 +14,19 @@ const createGame = async (req, res, next) => {
 };
 
 const findAllGames = async (req, res, next) => {
-  const result = await games.find({}).populate("categories").populate({
+  // Поиск всех игр в проекте по заданной категории
+  if (req.query["categories.name"]) {
+    req.gamesArray = await games.findGameByCategory(
+      req.query["categories.name"]
+    );
+    next();
+    return;
+  }
+  // Поиск всех игр в проекте
+  req.gamesArray = await games.find({}).populate("categories").populate({
     path: "users",
     select: "-password",
   });
-  req.gamesArray = result;
-  console.log(result);
   next();
 };
 
