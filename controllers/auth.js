@@ -5,7 +5,7 @@ const login = (req, res) => {
   const { email, password } = req.body;
 
   users
-    .findOne({ email })
+    .findUserByCredentials(email, password)
     .then((user) => {
       if (!user) {
         return Promise.reject(new Error("Неправильные почта или пароль"));
